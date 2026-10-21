@@ -1,3 +1,4 @@
+<!-- topics: fastapi,react,typescript,booking-system,healthcare,scheduling,timezone,sqlalchemy,tailwindcss,docker -->
 # Appointment Booking System
 
 Doctor-chamber appointment booking for Dhaka: slot generation in Asia/Dhaka, double-booking protection, cancellation and reschedule policies, SMS-style reminders, and a bilingual (EN/BN) React frontend.
