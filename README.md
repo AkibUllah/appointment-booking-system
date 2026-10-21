@@ -8,6 +8,15 @@ Doctor-chamber appointment booking for Dhaka: slot generation in Asia/Dhaka, dou
 ![React 18](https://img.shields.io/badge/react-18.3-61dafb)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
+## Try it live
+
+| | |
+|---|---|
+| API reference | https://akibullah.github.io/appointment-booking-system/ — Swagger UI rendered from the exported `openapi.json` (static; the Codespace runs the real service) |
+| Run in your browser | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AkibUllah/appointment-booking-system?quickstart=1) — starts Postgres, the API and the frontend with `docker compose` and seeds demo doctors and chambers; open port 8080 for the patient site (admin editor uses the token `dev-admin-token`) and port 8000 for `/docs` |
+| One-click deploy | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/AkibUllah/appointment-booking-system) — backend, frontend and a free Postgres from `render.yaml`; you are asked for `ADMIN_TOKEN` at deploy time |
+| Local | `docker compose up --build -d && docker compose run --rm seed` (see Quick Start) |
+
 ## Why this exists
 
 Private chambers in Dhaka still run on paper registers and a receptionist's phone. Patients queue for hours because every "appointment" is really a serial number, and doctors change sitting hours week to week. This service models the actual domain: a doctor has weekly sitting windows at a chamber, leave days and extra sittings override them, slots are cut per doctor (10/15/20 minutes), and a booking must never be issued twice for the same slot even when two receptionists click at the same moment. The same core powers the patient site, the admin schedule editor and the reminder job.
@@ -155,7 +164,7 @@ appointment-booking-system/
 │   │   ├── pages/          # Doctors, Doctor (booking), Appointments, Admin
 │   │   ├── i18n/           # EN/BN dictionaries + provider
 │   │   └── lib/            # format, phone, slot grouping
-│   ├── Dockerfile · nginx.conf · vite.config.ts
+│   ├── Dockerfile · nginx.conf.template · vite.config.ts
 ├── docker-compose.yml
 └── .github/workflows/ci.yml
 ```

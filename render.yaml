@@ -1,0 +1,59 @@
+# Render blueprint: FastAPI backend + nginx-served React frontend + free Postgres.
+# The frontend proxies /api to the backend over Render's private network, so the browser only
+# talks to one origin. The backend creates its tables at start-up; run `python -m app.seed`
+# from the backend service's shell once to load the demo doctors and chambers.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: appointment-booking-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: appointment-booking-db
+          property: connectionString
+      - key: ADMIN_TOKEN
+        # Prompted for at deploy time. The bundled frontend sends "dev-admin-token" from its
+        # admin editor; enter that to demo the editor, or anything else to keep it closed.
+        sync: false
+      - key: CLINIC_TIMEZONE
+        value: Asia/Dhaka
+      - key: SCHEDULER_ENABLED
+        value: "true"
+      - key: LOG_LEVEL
+        value: INFO
+
+  - type: web
+    name: appointment-booking-web
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "80"
+      - key: API_HOST
+        fromService:
+          name: appointment-booking-api
+          type: web
+          property: host
+      - key: API_PORT
+        fromService:
+          name: appointment-booking-api
+          type: web
+          property: port
+
+databases:
+  - name: appointment-booking-db
+    plan: free
+    databaseName: booking
+    user: booking
