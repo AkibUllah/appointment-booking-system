@@ -28,6 +28,17 @@ class Settings(BaseSettings):
     cors_origins: list[str] = ["http://localhost:5173", "http://localhost:8080"]
     log_level: str = "INFO"
 
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def _normalise_database_url(cls, value: object) -> object:
+        """Accept the ``postgres://`` / ``postgresql://`` URLs managed databases hand out
+        (Render, Heroku-style) and route them through the psycopg 3 driver we ship."""
+        if isinstance(value, str):
+            for prefix in ("postgres://", "postgresql://"):
+                if value.startswith(prefix):
+                    return "postgresql+psycopg://" + value[len(prefix) :]
+        return value
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def _split_origins(cls, value: object) -> object:
