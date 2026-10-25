@@ -4,6 +4,8 @@
 Doctor-chamber appointment booking for Dhaka: slot generation in Asia/Dhaka, double-booking protection, cancellation and reschedule policies, SMS-style reminders, and a bilingual (EN/BN) React frontend.
 
 [![CI](https://github.com/AkibUllah/appointment-booking-system/actions/workflows/ci.yml/badge.svg)](https://github.com/AkibUllah/appointment-booking-system/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/AkibUllah/appointment-booking-system/actions/workflows/codeql.yml/badge.svg)](https://github.com/AkibUllah/appointment-booking-system/actions/workflows/codeql.yml)
+[![Release](https://img.shields.io/github/v/release/AkibUllah/appointment-booking-system)](https://github.com/AkibUllah/appointment-booking-system/releases)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 ![React 18](https://img.shields.io/badge/react-18.3-61dafb)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
@@ -16,6 +18,16 @@ Doctor-chamber appointment booking for Dhaka: slot generation in Asia/Dhaka, dou
 | Run in your browser | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AkibUllah/appointment-booking-system?quickstart=1) — starts Postgres, the API and the frontend with `docker compose` and seeds demo doctors and chambers; open port 8080 for the patient site (admin editor uses the token `dev-admin-token`) and port 8000 for `/docs` |
 | One-click deploy | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/AkibUllah/appointment-booking-system) — backend, frontend and a free Postgres from `render.yaml`; you are asked for `ADMIN_TOKEN` at deploy time |
 | Local | `docker compose up --build -d && docker compose run --rm seed` (see Quick Start) |
+
+## Screenshots
+
+![Swagger UI listing the public and admin endpoints](docs/images/api-reference.png)
+
+*API reference on GitHub Pages: public booking endpoints and the token-protected admin API.*
+
+![Terminal running a curl session: search doctors, list slots, register a patient, book, double-book, cancel and a stale cancel](docs/images/curl-session.png)
+
+*A real curl session against the API on a local port with the demo seed: Dhaka-time slots, a confirmed booking, the 409 on a double booking, cancellation, and the optimistic-locking `stale_version` error.*
 
 ## Why this exists
 
@@ -172,7 +184,7 @@ appointment-booking-system/
 ## Testing
 
 ```bash
-cd backend && .venv/bin/python -m pytest      # 51 tests
+cd backend && .venv/bin/python -m pytest      # 56 tests
 cd frontend && npm test                        # 25 tests
 ```
 
@@ -180,11 +192,11 @@ Backend coverage: slot generation (contiguity, +06:00 offset, partial/whole-day 
 
 ## Roadmap
 
-- Replace the console notifier with an SMS gateway adapter (e.g. SSL Wireless) behind the existing `Notifier` protocol
-- Alembic migrations instead of `create_all` for schema evolution
-- Waiting list: offer a freed slot to the next patient on cancellation
-- Per-chamber receptionist accounts instead of a single admin token
-- Patient-side OTP verification for phone ownership
+- [ ] Replace the console notifier with an SMS gateway adapter (e.g. SSL Wireless) behind the existing `Notifier` protocol (#1)
+- [ ] Alembic migrations instead of `create_all` for schema evolution (#2)
+- [ ] Waiting list: offer a freed slot to the next patient on cancellation (#3)
+- [ ] Per-chamber receptionist accounts instead of a single admin token (#4)
+- [ ] Patient-side OTP verification for phone ownership (#5)
 
 ## License
 
