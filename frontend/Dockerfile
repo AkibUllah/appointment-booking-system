@@ -8,7 +8,7 @@ ARG VITE_ADMIN_TOKEN=dev-admin-token
 ENV VITE_API_BASE=$VITE_API_BASE VITE_ADMIN_TOKEN=$VITE_ADMIN_TOKEN
 RUN npm run build
 
-FROM nginx:1.29-alpine
+FROM nginx:1.31-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 # The entrypoint substitutes ${PORT}, ${API_HOST} and ${API_PORT} (and nothing else) into the config.
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
