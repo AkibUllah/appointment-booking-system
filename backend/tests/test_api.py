@@ -26,7 +26,7 @@ def setup_doctor(client: TestClient) -> int:
         db.add_all(
             [
                 Specialty(name="ENT", name_bn="নাক-কান-গলা"),
-                Chamber(name="Popular Shyamoli", area="Shyamoli", address="Mirpur Road"),
+                Chamber(name="Riverbank Shyamoli", area="Shyamoli", address="Mirpur Road"),
             ]
         )
         db.commit()

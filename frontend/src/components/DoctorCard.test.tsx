@@ -11,7 +11,7 @@ const doctor: Doctor = {
   name_bn: 'ডা. ফারহানা রহমান',
   degrees: 'MBBS, MD (Cardiology)',
   specialty: { id: 1, name: 'Cardiology', name_bn: 'হৃদরোগ' },
-  chamber: { id: 1, name: 'Labaid Dhanmondi', area: 'Dhanmondi', address: 'Road 4', phone: null },
+  chamber: { id: 1, name: 'Sunflower Dhanmondi', area: 'Dhanmondi', address: 'Road 4', phone: null },
   slot_minutes: 15,
   fee_bdt: 1200,
   experience_years: 14,

@@ -56,7 +56,7 @@ def settings():  # type: ignore[no-untyped-def]
 @pytest.fixture
 def doctor(db: Session) -> Doctor:
     spec = Specialty(name="Cardiology", name_bn="হৃদরোগ")
-    chamber = Chamber(name="Labaid Dhanmondi", area="Dhanmondi", address="Road 4, Dhanmondi")
+    chamber = Chamber(name="Sunflower Dhanmondi", area="Dhanmondi", address="Road 4, Dhanmondi")
     db.add_all([spec, chamber])
     db.flush()
     doc = Doctor(
